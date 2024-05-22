@@ -3,12 +3,8 @@ import { renderHeaderComponent } from "./header-component.js";
 import { goToPage } from "../index.js";
 import { likeed } from "./add-like.js";
 
-export function renderPostsPageComponent({ appEl, token, posts }) {
-  /**
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-   * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-   */
 
+export function renderAddPostPageUser({ appEl, token, posts }) {
   const apiPosts = posts
     .map((post) => {
       const postImgEl = post.imageUrl;
@@ -24,37 +20,54 @@ export function renderPostsPageComponent({ appEl, token, posts }) {
           : "./assets/images/like-not-active.svg";
 
       return `<li class="post">
-  <div class="post-header" data-user-id="${post.user.id}">
-    <img src="${post.user.imageUrl}" class="post-header__user-image">
-    <p class="post-header__user-name">${post.user.name}</p>
-  </div>
-  <div class="post-image-container">
-  <img class="post-image" src="${imgForPost}">
-  </div>
-  <div class="post-likes">
-  <button data-post-id="${post.id}" data-like-Status="${post.isLiked}" class="like-button">
-    <img src="${likeStatusButton}" class="isLiked">
-  </button>
-  <p class="post-likes-text">
-    Нравится: <strong>${post.likes.length}</strong>
-  </p>
-  </div>
-  <p class="post-text">
-  <span class="user-name">${post.user.name}</span>
-  ${post.description}
-  </p>
-  <p class="post-date">
-  ${post.createdAt}
-  </p>
-  </li>`;
+        <div class="post-header" data-user-id="${post.id}"></div>
+        <div class="post-image-container">
+        <img class="post-image" src="${imgForPost}">
+        </div>
+        <div class="post-likes">
+        <button data-post-id="${post.id}" data-like-Status="${post.isLiked}" class="like-button">
+            <img src="${likeStatusButton}">
+        </button>
+        <p class="post-likes-text">
+            Нравится: <strong>${post.likes.length}</strong>
+        </p>
+        </div>
+        <p class="post-text">
+        <span class="user-name"> ${post.user.name}</span>
+        ${post.description}
+        </p>
+        <p class="post-date">
+        ${post.createdAt}
+        </p>
+        </li>`;
     })
     .join("");
+
+  const userNameForHeader = (posts) => {
+    for (let i = 0; i < posts.length; i++) {
+      const element = posts[i];
+      return element.user.imageUrl;
+    }
+  };
+
+  const imgUrlForHeader = (posts) => {
+    for (let i = 0; i < posts.length; i++) {
+      const element = posts[i];
+      return element.user.name;
+    }
+  };
 
   const appHtml = `
 
       <div class="page-container">
         <div class="header-container"></div>
         <div class="center">
+
+        <div class="posts-user-header">
+            <img src="${userNameForHeader(posts)}" class="posts-user-header__user-image">
+            <h2 class="post-header__user-name">${imgUrlForHeader(posts)}</h2>
+            </div>    
+
         <ul  class="posts">${apiPosts}</ul>
         </div>
       </div>

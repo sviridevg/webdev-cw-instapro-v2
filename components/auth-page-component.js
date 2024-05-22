@@ -1,4 +1,5 @@
 import { loginUser, registerUser } from "../api.js";
+import { checking } from "./add-checks.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 
@@ -10,6 +11,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
     const appHtml = `
       <div class="page-container">
           <div class="header-container"></div>
+          <div class="center">
           <div class="form">
               <h3 class="form-title">
                 ${
@@ -49,6 +51,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
                
               </div>
           </div>
+          </div>
       </div>    
 `;
 
@@ -75,6 +78,10 @@ export function renderAuthPageComponent({ appEl, setUser }) {
       });
     }
 
+
+    
+
+
     document.getElementById("login-button").addEventListener("click", () => {
       setError("");
 
@@ -93,7 +100,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         }
 
         loginUser({
-          login: login,
+          login: checking(login),
           password: password,
         })
           .then((user) => {
@@ -127,9 +134,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         }
 
         registerUser({
-          login: login,
+          login: checking(login),
           password: password,
-          name: name,
+          name: checking(name),
           imageUrl,
         })
           .then((user) => {
