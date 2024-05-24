@@ -14,7 +14,9 @@ export const checking = (text) => {
 };
 
 export const innerdellButton = ({ user, post }) => {
-  if (user.login === post.user.login) {
+  if (user === null) {
+    return "";
+  }  if (user.login === post.user.login) {
     const dillButton = `<button  data-post-id="${post.id}" class="dell-button"> Удалить пост </button>`;
     return dillButton;
   } else {

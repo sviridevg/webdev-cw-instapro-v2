@@ -15,6 +15,8 @@ export function renderAddPostPageUser({ appEl, token, posts, user }) {
         ? postImgEl
         : badImg;
 
+      const buttoToDelite = innerdellButton({ user, post });
+
       const likeStatusButton =
         post.isLiked === true
           ? "./assets/images/like-active.svg"
@@ -40,7 +42,7 @@ export function renderAddPostPageUser({ appEl, token, posts, user }) {
 
         <div class="post-futer">
         <p class="post-date"> ${postTimeFormat(post)} </p>
-        <div class="dell-button-element post-date">${innerdellButton({ user, post })}</div>
+        <div class="dell-button-element post-date">${buttoToDelite}</div>
         </div>
 
         </li>`;

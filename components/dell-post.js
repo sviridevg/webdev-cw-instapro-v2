@@ -1,27 +1,19 @@
-import { dellPost, getPosts, userPosts } from "../api.js";
-import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
-import { goToPage, page } from "../index.js";
+import { dellPost, getPosts } from "../api.js";
+import { POSTS_PAGE } from "../routes.js";
+import { goToPage } from "../index.js";
 
-export const dellPostButton = ({ token, appEl, user }) => {
+export const dellPostButton = ({ token }) => {
   for (let dellEl of document.querySelectorAll(".dell-button")) {
     dellEl.addEventListener("click", () => {
       const idPost = dellEl.dataset.postId;
-      const idUser = user._id;
-      dellPost({ token, idPost });
-      if (page === POSTS_PAGE) {
-        getPosts({ token }).then((data) => {
-          alert("Ваш пост удален");
-          const posts = data;
-          // renderPostsPageComponent({ appEl, token, posts, user });
-          return goToPage(POSTS_PAGE);
-        });
-      }
-      if (page === USER_POSTS_PAGE) {
-        userPosts({ token, idUser }).then((data) => {
-          alert("Ваш пост удален");
-          return goToPage(POSTS_PAGE);
-        });
-      }
+      dellPost({ token, idPost }).then((data) => {
+        if (data.status === 200) {
+          getPosts({ token }).then((data) => {
+            alert("Ваш пост удален");
+            return goToPage(POSTS_PAGE);
+          });
+        }
+      });
     });
   }
 };
