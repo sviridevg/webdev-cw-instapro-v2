@@ -2,9 +2,10 @@ import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { goToPage } from "../index.js";
 import { likeed } from "./add-like.js";
+import { innerdellButton, postTimeFormat } from "./time-and-checks.js";
+import { dellPostButton } from "./dell-post.js";
 
-
-export function renderAddPostPageUser({ appEl, token, posts }) {
+export function renderAddPostPageUser({ appEl, token, posts, user }) {
   const apiPosts = posts
     .map((post) => {
       const postImgEl = post.imageUrl;
@@ -36,9 +37,12 @@ export function renderAddPostPageUser({ appEl, token, posts }) {
         <span class="user-name"> ${post.user.name}</span>
         ${post.description}
         </p>
-        <p class="post-date">
-        ${post.createdAt}
-        </p>
+
+        <div class="post-futer">
+        <p class="post-date"> ${postTimeFormat(post)} </p>
+        <div class="dell-button-element post-date">${innerdellButton({ user, post })}</div>
+        </div>
+
         </li>`;
     })
     .join("");
@@ -76,7 +80,8 @@ export function renderAddPostPageUser({ appEl, token, posts }) {
 
   appEl.innerHTML = appHtml;
 
-  likeed({ appEl, token });
+  likeed({ appEl, token, user });
+  dellPostButton({ token, appEl, user });
 
   renderHeaderComponent({
     element: document.querySelector(".header-container"),

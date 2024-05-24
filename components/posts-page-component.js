@@ -2,16 +2,14 @@ import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { goToPage } from "../index.js";
 import { likeed } from "./add-like.js";
+import { innerdellButton, postTimeFormat } from "./time-and-checks.js";
+import { dellPostButton } from "./dell-post.js";
 
-export function renderPostsPageComponent({ appEl, token, posts }) {
-  /**
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-   * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-   */
-
+export function renderPostsPageComponent({ appEl, token, posts, user }) {
   const apiPosts = posts
     .map((post) => {
       const postImgEl = post.imageUrl;
+
       const badImg =
         "https://img.freepik.com/free-vector/hand-drawn-flat-design-no-photo-sign_23-2149278078.jpg?t=st=1715845218~exp=1715848818~hmac=b10acb9e6acfd9acbcc146563626f08da88ee022c7ba544b7ba9dee2eef8bf57&w=740";
       const imgForPost = postImgEl.includes("skypro-webdev-homework-bucket")
@@ -43,9 +41,12 @@ export function renderPostsPageComponent({ appEl, token, posts }) {
   <span class="user-name">${post.user.name}</span>
   ${post.description}
   </p>
-  <p class="post-date">
-  ${post.createdAt}
-  </p>
+  
+  <div class="post-futer">
+  <p class="post-date"> ${postTimeFormat(post)} </p>
+  <div class="dell-button-element post-date">${innerdellButton({ user, post })}</div>
+  </div>
+  
   </li>`;
     })
     .join("");
@@ -63,7 +64,9 @@ export function renderPostsPageComponent({ appEl, token, posts }) {
 
   appEl.innerHTML = appHtml;
 
-  likeed({ appEl, token });
+  likeed({ appEl, token, user });
+
+  dellPostButton({ token, appEl, user });
 
   renderHeaderComponent({
     element: document.querySelector(".header-container"),

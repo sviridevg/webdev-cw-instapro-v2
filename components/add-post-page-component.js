@@ -1,9 +1,11 @@
-
-import { checking } from "./add-checks.js";
+import { checking } from "./time-and-checks.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
+import { getPosts, newPost } from "../api.js";
+import { goToPage } from "../index.js";
+import { POSTS_PAGE } from "../routes.js";
 
-export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
+export function renderAddPostPageComponent({ appEl, token, user }) {
   const render = () => {
     let imageUrl = "";
     // TODO: Реализовать страницу добавления поста
@@ -50,9 +52,16 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
     document.getElementById("add-button").addEventListener("click", () => {
       const descriptionElement = document.getElementById("description");
 
-      onAddPostClick({
+      newPost({
         description: checking(`${descriptionElement.value}`),
-        imageUrl: `${imageUrl}`,
+        imageUrl,
+        token,
+      }).then((responseData) => {
+        if (responseData.result === "ok") {
+          getPosts(token).then((data) => {
+            return goToPage(POSTS_PAGE);
+          });
+        }
       });
     });
   };

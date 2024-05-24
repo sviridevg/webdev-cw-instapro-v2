@@ -1,5 +1,5 @@
 import { loginUser, registerUser } from "../api.js";
-import { checking } from "./add-checks.js";
+import { checking } from "./time-and-checks.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 
@@ -77,10 +77,6 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         },
       });
     }
-
-
-    
-
 
     document.getElementById("login-button").addEventListener("click", () => {
       setError("");

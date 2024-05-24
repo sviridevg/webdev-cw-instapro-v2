@@ -1,4 +1,4 @@
-import { getPosts, newPost, userPosts } from "./api.js";
+import { getPosts, userPosts } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -71,7 +71,7 @@ export const goToPage = (newPage, data) => {
       page = LOADING_PAGE;
       renderApp();
 
-      return userPosts({ token: getToken(), idPost: data.userId })
+      return userPosts({ token: getToken(), idUser: data.userId })
         .then((newPosts) => {
           page = USER_POSTS_PAGE;
           posts = newPosts;
@@ -118,10 +118,8 @@ export const renderApp = () => {
   if (page === ADD_POSTS_PAGE) {
     return renderAddPostPageComponent({
       appEl,
-      onAddPostClick({ description, imageUrl }) {
-        newPost({ description, imageUrl, token: getToken() });
-        goToPage(POSTS_PAGE);
-      },
+      token: getToken(),
+      user,
     });
   }
 
@@ -130,12 +128,12 @@ export const renderApp = () => {
       appEl,
       token: getToken(),
       posts,
+      user,
     });
   }
 
   if (page === USER_POSTS_PAGE) {
-    // TODO: реализовать страницу фотографию пользвателя
-    renderAddPostPageUser({ appEl, token: getToken(), posts,});
+    renderAddPostPageUser({ appEl, token: getToken(), posts, user });
   }
 };
 
