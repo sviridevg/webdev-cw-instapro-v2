@@ -13,13 +13,19 @@ export const checking = (text) => {
   return text.replaceAll("<", "&lt").replaceAll(">", "&gt");
 };
 
+// Вставка кнопки удалить пост
 export const innerdellButton = ({ user, post }) => {
+  // Если данных юзера нет вставляем пустое поле
   if (user === null) {
     return "";
-  }  if (user.login === post.user.login) {
+  }
+  // Если данные юзера есть и его логин совпадает с логином автора поставставляем кнопку "Удалить пост"
+  else if (user.login === post.user.login) {
     const dillButton = `<button  data-post-id="${post.id}" class="dell-button"> Удалить пост </button>`;
     return dillButton;
-  } else {
+  }
+  // Если пользователь не автор, вставляем пустое поле
+  else {
     return "";
   }
 };

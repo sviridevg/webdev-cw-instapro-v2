@@ -39,6 +39,7 @@ export function renderUploadImageComponent({ element, onImageUrlChange }) {
         lableEl.textContent = "Загружаю файл...";
         uploadImage({ file }).then(({ fileUrl }) => {
           imageUrl = fileUrl;
+          console.log(imageUrl);
           onImageUrlChange(imageUrl);
           render();
         });

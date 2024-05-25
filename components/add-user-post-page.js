@@ -2,7 +2,11 @@ import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { goToPage } from "../index.js";
 import { likeed } from "./add-like.js";
-import { innerdellButton, postTimeFormat } from "./time-and-checks.js";
+import {
+  checking,
+  innerdellButton,
+  postTimeFormat,
+} from "./time-and-checks.js";
 import { dellPostButton } from "./dell-post.js";
 
 export function renderAddPostPageUser({ appEl, token, posts, user }) {
@@ -10,12 +14,10 @@ export function renderAddPostPageUser({ appEl, token, posts, user }) {
     .map((post) => {
       const postImgEl = post.imageUrl;
       const badImg =
-        "https://img.freepik.com/free-vector/hand-drawn-flat-design-no-photo-sign_23-2149278078.jpg?t=st=1715845218~exp=1715848818~hmac=b10acb9e6acfd9acbcc146563626f08da88ee022c7ba544b7ba9dee2eef8bf57&w=740";
+        "https://storage.yandexcloud.net/skypro-webdev-homework-bucket/1716610061122-error.jpg";
       const imgForPost = postImgEl.includes("skypro-webdev-homework-bucket")
         ? postImgEl
         : badImg;
-
-      const buttoToDelite = innerdellButton({ user, post });
 
       const likeStatusButton =
         post.isLiked === true
@@ -36,13 +38,13 @@ export function renderAddPostPageUser({ appEl, token, posts, user }) {
         </p>
         </div>
         <p class="post-text">
-        <span class="user-name"> ${post.user.name}</span>
-        ${post.description}
+        <span class="user-name"> ${checking(post.user.name)}</span>
+        ${checking(post.description)}
         </p>
 
         <div class="post-futer">
         <p class="post-date"> ${postTimeFormat(post)} </p>
-        <div class="dell-button-element post-date">${buttoToDelite}</div>
+        <div class="dell-button-element post-date">${innerdellButton({ user, post })}</div>
         </div>
 
         </li>`;
