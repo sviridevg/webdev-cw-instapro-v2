@@ -63,12 +63,14 @@
 }
 
 .post-image-container {
-  margin-left: -20px;
-  margin-right: -20px;
+  /* margin-left: 12px;
+  margin-right: 12px; */
   height: 500px;
   display: flex;
   justify-content: center;
-  background-color: #e0e0e0;
+  background-color: #f5f5f5;
+  border-block: 1px solid #e0e0e0;
+  margin-bottom: 12px;
 }
 
 .post-image {
@@ -111,11 +113,25 @@
   margin-top: 20px;
 }
 
+.post {
+  width: 600px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  padding: 12px 12px 12px 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .posts-user-header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 12px;
+  margin-block: 24px;
 }
 
 .posts-user-header__user-image {
@@ -146,7 +162,17 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
+  width: 600px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    padding: 12px 12px 12px 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.add-post-page-form {
+  display: flex;
+  gap: 12px;
 }
 
 .form-title {
@@ -195,4 +221,24 @@
   box-sizing: border-box;
   width: 100%;
   text-align: center;
+}
+
+.post-futer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dell-button {
+  background-color: transparent;
+  border: none;
+  color: #8a8a8a;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.dell-button:hover{
+  text-decoration-line: underline;
+  cursor: pointer;
 }
